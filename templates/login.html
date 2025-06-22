@@ -3,86 +3,61 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Вход — Personnel Tracker</title>
+<title>Вход в Автономную систему учета</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   body {
-    background: linear-gradient(135deg, #2c3e50, #3498db);
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    background: #2c3e50;
+    color: #ecf0f1;
+    display: flex; justify-content: center; align-items: center; height: 100vh;
     margin: 0;
   }
-  .login-container {
-    background: #ffffffee;
-    padding: 30px 40px;
+  form {
+    background: #34495e;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    width: 320px;
-    text-align: center;
-    animation: fadeInScale 0.5s ease forwards;
+    box-shadow: 0 0 10px #1abc9c;
+    animation: glow 2s ease-in-out infinite alternate;
   }
-  @keyframes fadeInScale {
-    0% {
-      opacity: 0;
-      transform: scale(0.85);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  h2 {
-    margin-bottom: 20px;
-    color: #2c3e50;
-  }
-  input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 12px 15px;
-    margin: 10px 0 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+  input {
+    display: block;
+    width: 250px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
     font-size: 16px;
-    transition: border-color 0.3s;
-  }
-  input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #3498db;
-    outline: none;
   }
   button {
     width: 100%;
-    padding: 12px;
-    background: #3498db;
+    padding: 10px;
+    background: #1abc9c;
     border: none;
-    color: white;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 6px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #2c3e50;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background 0.3s ease;
   }
   button:hover {
-    background: #2980b9;
+    background: #16a085;
   }
-  .error {
-    color: #e74c3c;
-    margin-bottom: 15px;
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 5px #1abc9c;
+    }
+    to {
+      box-shadow: 0 0 20px #16a085;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Вход в Автономную систему учёта</h2>
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
-    <form method="POST" action="{{ url_for('login') }}">
-      <input type="text" name="username" placeholder="Имя пользователя" required autocomplete="off" />
-      <input type="password" name="password" placeholder="Пароль" required autocomplete="off" />
-      <button type="submit">Войти</button>
-    </form>
-  </div>
+  <form method="POST" action="/login">
+    <h2>Вход в Автономную систему учета</h2>
+    <input type="text" name="username" placeholder="Логин" required />
+    <input type="password" name="password" placeholder="Пароль" required />
+    <button type="submit">Войти</button>
+  </form>
 </body>
 </html>
