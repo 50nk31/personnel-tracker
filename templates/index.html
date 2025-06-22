@@ -53,6 +53,32 @@
   tr:nth-child(even) {
     background: rgba(255,255,255,0.05);
   }
+  form.add-employee {
+    margin-top: 30px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  form.add-employee input {
+    margin-right: 10px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+  }
+  form.add-employee button {
+    padding: 8px 16px;
+    background: #27ae60;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  form.add-employee button:hover {
+    background: #1e8449;
+  }
   .logout-btn {
     margin-top: 20px;
     padding: 10px 20px;
@@ -95,6 +121,15 @@
     {% else %}
       <p>Список сотрудников пуст.</p>
     {% endif %}
+
+    <form class="add-employee" action="{{ url_for('add_employee') }}" method="post">
+      <h3>Добавить сотрудника</h3>
+      <input type="text" name="name" placeholder="Имя" required />
+      <input type="number" name="hourly_rate" placeholder="Часовая ставка" step="0.01" min="0" required />
+      <input type="number" name="hours_worked" placeholder="Отработано часов" step="0.01" min="0" required />
+      <button type="submit">Добавить</button>
+    </form>
+
     <form action="{{ url_for('logout') }}" method="get">
       <button class="logout-btn" type="submit">Выйти</button>
     </form>
