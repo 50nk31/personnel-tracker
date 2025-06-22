@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 
 # Модель администратора
 class User(db.Model):
+    __tablename__ = 'users'  # Явное имя таблицы, чтобы не использовать ключевое слово "user"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
@@ -25,6 +26,7 @@ class User(db.Model):
 
 # Модель сотрудника
 class Employee(db.Model):
+    __tablename__ = 'employees'  # Явное имя таблицы
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     hourly_rate = db.Column(db.Float, nullable=False)
@@ -102,7 +104,11 @@ def delete_employee(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+# Временный роут для создания таблиц (зайди один раз, потом удали этот код)
+@app.route('/initdb')
+def initdb():
+    db.create_all()
+    return "Таблицы созданы"
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
