@@ -40,8 +40,7 @@ def initdb():
 
 @app.route('/')
 def index():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    # Отключаем проверку сессии — сразу показываем главную страницу
     employees = Employee.query.all()
     return render_template('index.html', employees=employees)
 
@@ -78,8 +77,9 @@ def logout():
 
 @app.route('/add', methods=['POST'])
 def add_employee():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    # Если хочешь убрать проверку на добавление, закомментируй эту часть
+    # if 'user_id' not in session:
+    #     return redirect(url_for('login'))
     name = request.form['name']
     hourly_rate = float(request.form['hourly_rate'])
     hours_worked = float(request.form['hours_worked'])
@@ -90,8 +90,9 @@ def add_employee():
 
 @app.route('/delete/<int:id>')
 def delete_employee(id):
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    # Если хочешь убрать проверку на удаление, закомментируй эту часть
+    # if 'user_id' not in session:
+    #     return redirect(url_for('login'))
     employee = Employee.query.get_or_404(id)
     db.session.delete(employee)
     db.session.commit()
