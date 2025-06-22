@@ -1,128 +1,150 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <title>Personnel Tracker — Главная</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background: linear-gradient(135deg, #4b0082, #000000);
-            min-height: 100vh;
-            color: #d4af37;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 2rem;
-        }
-        h1 {
-            text-align: center;
-            text-shadow: 0 0 10px #d4af37;
-            margin-bottom: 2rem;
-        }
-        table {
-            background: rgba(0,0,0,0.8);
-            box-shadow: 0 0 20px #d4af37;
-            border-radius: 10px;
-        }
-        th, td {
-            padding: 1rem;
-            vertical-align: middle !important;
-            text-align: center;
-        }
-        thead th {
-            border-bottom: 2px solid #d4af37;
-        }
-        tbody tr:hover {
-            background-color: #330066;
-            cursor: pointer;
-        }
-        .btn-gold {
-            background-color: #d4af37;
-            color: black;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .btn-gold:hover {
-            background-color: #b38f1a;
-            color: white;
-        }
-        .form-add {
-            max-width: 400px;
-            margin: 2rem auto;
-            background: rgba(0,0,0,0.7);
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #d4af37;
-            animation: fadeIn 1s ease forwards;
-        }
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        input.form-control {
-            background: #2c003e;
-            border: none;
-            color: #f0e68c;
-            box-shadow: 0 0 5px #d4af37;
-        }
-        input.form-control::placeholder {
-            color: #bfa94f;
-        }
-        a.logout {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            color: #d4af37;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-            z-index: 10;
-        }
-        a.logout:hover {
-            background-color: #d4af37;
-            color: black;
-            text-decoration: none;
-        }
-    </style>
+<meta charset="UTF-8" />
+<title>Personnel Tracker — Главная</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+  body {
+    background-color: #f5f7fa;
+    min-height: 100vh;
+    color: #1a2a47;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 2rem 3rem;
+  }
+  h1 {
+    text-align: center;
+    color: #3a63d8;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    animation: fadeInText 1s ease forwards;
+  }
+  table {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(58, 99, 216, 0.2);
+    animation: fadeInUp 0.8s ease forwards;
+  }
+  th, td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle !important;
+    text-align: center;
+    border-top: 1px solid #e5e9f2;
+  }
+  thead th {
+    border-bottom: 2px solid #3a63d8;
+    color: #3a63d8;
+    font-weight: 600;
+  }
+  tbody tr:hover {
+    background-color: #e1e8ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary {
+    background-color: #3a63d8;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover {
+    background-color: #2e4fb8;
+    transform: scale(1.05);
+  }
+  .form-add {
+    max-width: 420px;
+    margin: 2.5rem auto 0;
+    background: white;
+    padding: 1.8rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(58, 99, 216, 0.25);
+    animation: fadeInUp 1s ease forwards;
+  }
+  .form-add h4 {
+    margin-bottom: 1.2rem;
+    color: #3a63d8;
+    font-weight: 700;
+  }
+  input.form-control {
+    border: 1.6px solid #d1d9ee;
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1rem;
+  }
+  input.form-control:focus {
+    border-color: #3a63d8;
+    box-shadow: 0 0 8px rgba(58, 99, 216, 0.4);
+    outline: none;
+  }
+  a.logout {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    color: #3a63d8;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.4rem 1rem;
+    border: 2px solid #3a63d8;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 10;
+  }
+  a.logout:hover {
+    background-color: #3a63d8;
+    color: white;
+    text-decoration: none;
+  }
+
+  @keyframes fadeInText {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  @keyframes fadeInUp {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
 </head>
 <body>
-    <a href="{{ url_for('logout') }}" class="logout">Выйти</a>
-    <h1>Учет сотрудников</h1>
+  <a href="{{ url_for('logout') }}" class="logout">Выйти</a>
+  <h1>Учет сотрудников</h1>
 
-    <table class="table table-dark table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Имя</th>
-                <th>Почасовая ставка</th>
-                <th>Отработано часов</th>
-                <th>Зарплата</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for emp in employees %}
-            <tr>
-                <td>{{ emp.name }}</td>
-                <td>{{ emp.hourly_rate }}</td>
-                <td>{{ emp.hours_worked }}</td>
-                <td>{{ emp.get_salary() }}</td>
-                <td>
-                    <a href="{{ url_for('delete_employee', id=emp.id) }}" class="btn btn-gold btn-sm">Удалить</a>
-                </td>
-            </tr>
-            {% else %}
-            <tr><td colspan="5">Сотрудники не найдены</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th>Имя</th>
+        <th>Почасовая ставка</th>
+        <th>Отработано часов</th>
+        <th>Зарплата</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in employees %}
+      <tr>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.hourly_rate }}</td>
+        <td>{{ emp.hours_worked }}</td>
+        <td>{{ emp.get_salary() }}</td>
+        <td>
+          <a href="{{ url_for('delete_employee', id=emp.id) }}" class="btn btn-primary btn-sm">Удалить</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">Сотрудники не найдены</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-    <form action="{{ url_for('add_employee') }}" method="POST" class="form-add">
-        <h4>Добавить сотрудника</h4>
-        <input type="text" name="name" placeholder="Имя" class="form-control mb-2" required />
-        <input type="number" step="0.01" name="hourly_rate" placeholder="Почасовая ставка" class="form-control mb-2" required />
-        <input type="number" step="0.01" name="hours_worked" placeholder="Отработано часов" class="form-control mb-3" required />
-        <button type="submit" class="btn btn-gold w-100">Добавить</button>
-    </form>
+  <form action="{{ url_for('add_employee') }}" method="POST" class="form-add">
+    <h4>Добавить сотрудника</h4>
+    <input type="text" name="name" placeholder="Имя" class="form-control" required />
+    <input type="number" step="0.01" name="hourly_rate" placeholder="Почасовая ставка" class="form-control" required />
+    <input type="number" step="0.01" name="hours_worked" placeholder="Отработано часов" class="form-control" required />
+    <button type="submit" class="btn btn-primary w-100">Добавить</button>
+  </form>
 </body>
 </html>
