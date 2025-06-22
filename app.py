@@ -35,6 +35,10 @@ class Employee(db.Model):
 
 @app.route('/')
 def index():
+    if not User.query.first():
+        # Если пользователей нет — направляем на регистрацию
+        return redirect(url_for('register'))
+
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
@@ -54,7 +58,8 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if User.query.first():
-        return redirect(url_for('login'))  # Разрешено только один раз
+        # Разрешена регистрация только если пользователей нет
+        return redirect(url_for('login'))
 
     if request.method == 'POST':
         username = request.form['username']
