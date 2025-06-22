@@ -1,14 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev_secret")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") or 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
 
 class Employee(db.Model):
     __tablename__ = 'employees'
@@ -26,24 +31,46 @@ def initdb():
     return "База данных и таблицы созданы"
 
 @app.route('/')
-def index():
-    employees = Employee.query.all()
-    return render_template('index.html', employees=employees)
+def root():
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Просто пускаем любого без проверки
+        # Фейковый логин: любой логин и пароль пускают
+        username = request.form['username']
+        if not username:
+            return render_template('login.html', error="Введите имя пользователя")
+
+        # Создаём/находим пользователя в базе (чтобы потом можно было выйти)
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            user = User(username=username)
+            db.session.add(user)
+            db.session.commit()
+
+        session['user_id'] = user.id
+        session['username'] = user.username
         return redirect(url_for('index'))
+
     return render_template('login.html')
+
+@app.route('/index')
+def index():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    employees = Employee.query.all()
+    return render_template('index.html', employees=employees)
 
 @app.route('/logout')
 def logout():
-    # Просто редирект на логин (нет сессии)
+    session.clear()
     return redirect(url_for('login'))
 
 @app.route('/add', methods=['POST'])
 def add_employee():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     name = request.form['name']
     hourly_rate = float(request.form['hourly_rate'])
     hours_worked = float(request.form['hours_worked'])
@@ -54,6 +81,8 @@ def add_employee():
 
 @app.route('/delete/<int:id>')
 def delete_employee(id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     employee = Employee.query.get_or_404(id)
     db.session.delete(employee)
     db.session.commit()
