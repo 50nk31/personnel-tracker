@@ -34,7 +34,7 @@ def index():
     employees = Employee.query.all()
     return render_template('index.html', employees=employees)
 
-# Фейковый логин
+# Логин
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
