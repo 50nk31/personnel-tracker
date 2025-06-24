@@ -42,7 +42,7 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html')
 
-# Выход (logout)
+# Выход
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
